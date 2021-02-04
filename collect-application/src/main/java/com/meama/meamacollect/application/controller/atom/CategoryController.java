@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/atom/categories")
 public class CategoryController {
@@ -25,6 +27,25 @@ public class CategoryController {
                                         @RequestParam(value = "orderBy", required = false) String orderBy,
                                         @RequestParam(value = "asc", required = false) boolean asc) {
         return categoryService.find(query, limit, offset, orderBy, asc);
+    }
+
+    @GetMapping(value = "/advance/{limit}/{offset}", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PermissionCheck(action = "product_type_view")
+    public ListResult<CategoryDTO> find(@PathVariable int limit,
+                                        @PathVariable int offset,
+                                        @RequestParam(value = "id", required = false) Long id,
+                                        @RequestParam(value = "equalid", required = false) Long equalId,
+                                        @RequestParam(value = "name", required = false) String name,
+                                        @RequestParam(value = "active", required = false) Boolean active,
+                                        @RequestParam(value = "orderBy", required = false) String orderBy,
+                                        @RequestParam(value = "asc", required = false) boolean asc) {
+        return categoryService.find(id, equalId, name, active, limit, offset, orderBy, asc);
+    }
+
+    @GetMapping(value = "/for-new-category", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PermissionCheck(action = "product_type_view")
+    public List<CategoryDTO> findCategoy(@RequestParam(value = "id", required = false) Long id) {
+        return categoryService.findCategoriesForNewCategory(id);
     }
 
     @PutMapping(value = "/{id}")

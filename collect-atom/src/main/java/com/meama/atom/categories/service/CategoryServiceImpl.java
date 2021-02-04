@@ -15,6 +15,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -32,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ListResult<CategoryDTO> find(String query, int limit, int offset, String orderBy, boolean asc) {
-        ListResult<Category> categoryListResult = categoryStorage.find(query, limit, offset, orderBy, asc);
+        ListResult<Category> categoryListResult = categoryStorage.find(query, limit, offset, "parentCategoryId", asc);
         ListResult<CategoryDTO> result = categoryListResult.copy(CategoryDTO.class);
         result.setResultList(CategoryHelper.fromEntities(categoryListResult.getResultList()));
         for (CategoryDTO categoryDTO : result.getResultList()) {
@@ -41,6 +44,27 @@ public class CategoryServiceImpl implements CategoryService {
             }
         }
         return result;
+    }
+
+    @Override
+    public ListResult<CategoryDTO> find(Long id, Long equalId, String name, Boolean active, int limit, int offset, String orderBy, boolean asc) {
+        ListResult<Category> categoryListResult = categoryStorage.find(id, equalId, name, active, limit, offset, orderBy, asc);
+        ListResult<CategoryDTO> result = categoryListResult.copy(CategoryDTO.class);
+        result.setResultList(CategoryHelper.fromEntities(categoryListResult.getResultList()));
+        for (CategoryDTO categoryDTO : result.getResultList()) {
+            if (categoryDTO.getParentCategory() != null) {
+                getParentCategory(categoryDTO);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<CategoryDTO> findCategoriesForNewCategory(Long id) {
+//        if (categoryStorage.countById(id) == 0) {
+//            return new ArrayList<>();
+//        }
+        return CategoryHelper.fromEntities(categoryStorage.findCategoriesForNewCategory(id));
     }
 
     @Override
