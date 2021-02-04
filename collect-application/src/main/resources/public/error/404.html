@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>Error 404</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+  <div class="main_container">
+    <!-- page content -->
+    <div class="col-md-12">
+      <div class="col-middle">
+        <div class="text-center text-center">
+          <h1 class="error-number">404</h1>
+          <h2>Sorry but we couldn't find this page</h2>
+          <p>This page you are looking for does not exist. Return to <a style="cursor: pointer" id="home">home</a></p>
+          <script>
+              document.getElementById("home").addEventListener("click", function () {
+                  window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/"));
+              });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

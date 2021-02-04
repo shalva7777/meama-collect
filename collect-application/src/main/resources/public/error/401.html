@@ -1,0 +1,29 @@
+<html>
+<head>
+    <title>Error 401</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <!-- page content -->
+        <div class="col-md-12">
+            <div class="col-middle">
+                <div class="text-center text-center">
+                    <h1 class="error-number">401</h1>
+                    <h2>Unauthorized request</h2>
+                    <p>Please <a style="cursor: pointer" id="signin">sign in</a> to access this page</p>
+                    <script>
+                        document.getElementById("signin").addEventListener("click", function () {
+                            window.location.href = window.location.protocol + "//" + window.location.host + "/meama-collect/login";
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

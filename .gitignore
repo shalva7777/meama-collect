@@ -1,0 +1,6 @@
+# Project exclude paths
+/collect-application/target/
+/collect-atom/target/
+/collect-common/target/
+/collect-file-system/target/
+/collect-security/target/

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="collect-common" />
+        <module name="collect-atom" />
+        <module name="collect-file-system" />
+        <module name="collect-application" />
+        <module name="collect-commons" />
+        <module name="collect-security" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="collect-commons" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="collect-application" options="-parameters" />
+      <module name="collect-atom" options="-parameters" />
+      <module name="collect-common" options="-parameters" />
+      <module name="collect-commons" options="-parameters" />
+      <module name="collect-file-system" options="-parameters" />
+      <module name="collect-security" options="-parameters" />
+    </option>
+  </component>
+</project>
