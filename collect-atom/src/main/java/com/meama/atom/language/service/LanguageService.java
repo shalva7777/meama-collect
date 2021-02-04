@@ -1,7 +1,7 @@
 package com.meama.atom.language.service;
 
 import com.meama.atom.exception.AtomException;
-import com.meama.common.atom.LanguageDTO;
+import com.meama.common.atom.languages.LanguageDTO;
 import com.meama.common.response.ListResult;
 
 public interface LanguageService {

@@ -2,7 +2,7 @@ package com.meama.meamacollect.application.controller.atom;
 
 import com.meama.atom.exception.AtomException;
 import com.meama.atom.language.service.LanguageService;
-import com.meama.common.atom.LanguageDTO;
+import com.meama.common.atom.languages.LanguageDTO;
 import com.meama.common.response.ListResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

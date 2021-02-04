@@ -2,7 +2,7 @@ package com.meama.atom.language.storage;
 
 
 import com.meama.atom.language.storage.model.Language;
-import com.meama.common.atom.LanguageDTO;
+import com.meama.common.atom.languages.LanguageDTO;
 
 import java.util.ArrayList;
 import java.util.List;

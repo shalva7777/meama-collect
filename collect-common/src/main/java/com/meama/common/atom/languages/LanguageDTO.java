@@ -1,4 +1,4 @@
-package com.meama.common.atom;
+package com.meama.common.atom.languages;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

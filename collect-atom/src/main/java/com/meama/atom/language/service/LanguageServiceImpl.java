@@ -6,7 +6,7 @@ import com.meama.atom.language.storage.LanguageRepository;
 import com.meama.atom.language.storage.LanguageStorage;
 import com.meama.atom.language.storage.model.Language;
 import com.meama.atom.messages.Messages;
-import com.meama.common.atom.LanguageDTO;
+import com.meama.common.atom.languages.LanguageDTO;
 import com.meama.common.response.ListResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
