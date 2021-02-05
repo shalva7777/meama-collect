@@ -139,22 +139,18 @@ public class CategoryStorage {
         List<Category> categories = new ArrayList<>();
         List<Category> resultList = q.getResultList();
         for (Category category : resultList) {
-            long count = countUsedParentCategory(category.getParentCategoryId());
-            if (count == 0) {
-                categories.add(category);
-            }
+//            long count = countUsedParentCategory(category.getId());
+//            if (count == 0) {
+            categories.add(category);
+//            }
         }
         return categories;
     }
 
     public Long countUsedParentCategory(Long parentCategoryId) {
-        StringBuilder builder = new StringBuilder();
         Map<String, Object> params = new HashMap<>();
-        if (parentCategoryId != null) {
-            builder.append(" AND c.parentCategoryId = :parentCategoryId");
-            params.put("parentCategoryId", parentCategoryId);
-        }
-        Query cq = em.createQuery("SELECT COUNT(c.id) FROM Category c WHERE 1=1 " + builder.toString());
+        params.put("parentCategoryId", parentCategoryId);
+        Query cq = em.createQuery("SELECT COUNT(c.id) FROM Category c WHERE c.parentCategoryId = :parentCategoryId");
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             cq.setParameter(entry.getKey(), entry.getValue());
         }
@@ -162,13 +158,9 @@ public class CategoryStorage {
     }
 
     public Long countById(Long Id) {
-        StringBuilder builder = new StringBuilder();
         Map<String, Object> params = new HashMap<>();
-        if (Id != null) {
-            builder.append(" AND c.id = :Id");
-            params.put("Id", Id);
-        }
-        Query cq = em.createQuery("SELECT COUNT(c.id) FROM Category c WHERE 1=1 " + builder.toString());
+        params.put("parentCategoryId", Id);
+        Query cq = em.createQuery("SELECT COUNT(c.id) FROM Category c WHERE c.parentCategoryId = :parentCategoryId");
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             cq.setParameter(entry.getKey(), entry.getValue());
         }

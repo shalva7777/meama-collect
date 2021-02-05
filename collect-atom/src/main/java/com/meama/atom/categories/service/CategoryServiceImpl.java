@@ -61,9 +61,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDTO> findCategoriesForNewCategory(Long id) {
-//        if (categoryStorage.countById(id) == 0) {
-//            return new ArrayList<>();
-//        }
+        if (categoryStorage.countById(id) > 0) {
+            return new ArrayList<>();
+        }
         return CategoryHelper.fromEntities(categoryStorage.findCategoriesForNewCategory(id));
     }
 
