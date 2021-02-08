@@ -24,5 +24,7 @@ public class CategoryDTO implements Serializable {
     private CategoryDTO parentCategory;
     private boolean active;
     private List<StandardTranslationDTO> translations;
+    private int sortIndex;
+    private CategoryTypeDTO categoryType;
 
 }

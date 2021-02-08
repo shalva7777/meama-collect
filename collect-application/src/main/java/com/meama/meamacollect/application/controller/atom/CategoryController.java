@@ -2,6 +2,7 @@ package com.meama.meamacollect.application.controller.atom;
 
 import com.meama.atom.categories.service.CategoryService;
 import com.meama.common.atom.categories.CategoryDTO;
+import com.meama.common.response.ComboObject;
 import com.meama.common.response.ListResult;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -81,6 +82,16 @@ public class CategoryController {
 //    @AuditLog(action = "deactivation", target = "category", eventName = "Deactivated category with id [0]", args = {"0"})
     public CategoryDTO deactivate(@PathVariable long id) {
         return categoryService.deactivate(id);
+    }
+
+    @GetMapping(value = "/category-types")
+    public List<ComboObject> getDeviceType() {
+        return categoryService.getCategoryTypes();
+    }
+
+    @PostMapping(value = "/index")
+    public Boolean indexCategories(@RequestBody List<CategoryDTO> categories) throws Exception {
+        return categoryService.indexCategories(categories);
     }
 
 }

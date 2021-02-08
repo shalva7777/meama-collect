@@ -4,10 +4,12 @@ import com.meama.atom.categories.storage.CategoryHelper;
 import com.meama.atom.categories.storage.CategoryRepository;
 import com.meama.atom.categories.storage.CategoryStorage;
 import com.meama.atom.categories.storage.model.Category;
+import com.meama.atom.categories.storage.model.CategoryType;
 import com.meama.atom.exception.AtomException;
 import com.meama.atom.language.service.LanguageService;
 import com.meama.atom.messages.Messages;
 import com.meama.common.atom.categories.CategoryDTO;
+import com.meama.common.response.ComboObject;
 import com.meama.common.response.ListResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,10 +117,37 @@ public class CategoryServiceImpl implements CategoryService {
         return getParentCategory(CategoryHelper.fromEntity(save));
     }
 
+    @Override
+    public List<ComboObject> getCategoryTypes() {
+        List<ComboObject> result = new ArrayList<>();
+        for (CategoryType type : CategoryType.values()) {
+            result.add(new ComboObject(type.name(), Messages.get(CategoryType.class.getSimpleName() + "_" + type.name())));
+        }
+        return result;
+    }
+
+    @Override
+    public Boolean indexCategories(List<CategoryDTO> categories) throws AtomException {
+        for (CategoryDTO category : categories) {
+            Category prevCategory = categoryRepository.findOne(category.getId());
+            if (prevCategory == null) {
+                throw new AtomException(Messages.get("objectNotFound"));
+            }
+            if (!prevCategory.getName().equals(category.getName()) && categoryRepository.findByName(category.getName()) != null) {
+                throw new AtomException(Messages.get("categorywithThisNameAlreadyExists"));
+            }
+            prevCategory.setSortIndex(category.getSortIndex());
+            categoryRepository.save(prevCategory);
+        }
+        return true;
+    }
+
     private CategoryDTO getParentCategory(CategoryDTO category) {
         if (category.getParentCategoryId() != null) {
             category.setParentCategory(CategoryHelper.fromEntity(categoryRepository.getOne(category.getParentCategoryId())));
         }
         return category;
     }
+
+
 }

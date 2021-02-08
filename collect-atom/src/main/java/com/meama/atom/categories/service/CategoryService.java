@@ -2,6 +2,7 @@ package com.meama.atom.categories.service;
 
 import com.meama.atom.exception.AtomException;
 import com.meama.common.atom.categories.CategoryDTO;
+import com.meama.common.response.ComboObject;
 import com.meama.common.response.ListResult;
 
 import java.util.List;
@@ -23,4 +24,8 @@ public interface CategoryService {
     CategoryDTO activate(long id);
 
     CategoryDTO deactivate(long id);
+
+    List<ComboObject> getCategoryTypes();
+
+    Boolean indexCategories(List<CategoryDTO> categories) throws AtomException;
 }

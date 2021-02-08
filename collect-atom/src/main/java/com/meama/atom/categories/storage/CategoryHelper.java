@@ -1,7 +1,9 @@
 package com.meama.atom.categories.storage;
 
 import com.meama.atom.categories.storage.model.Category;
+import com.meama.atom.categories.storage.model.CategoryType;
 import com.meama.common.atom.categories.CategoryDTO;
+import com.meama.common.atom.categories.CategoryTypeDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,8 @@ public class CategoryHelper {
         if (category.getParentCategory() != null) {
             result.setParentCategoryId(category.getParentCategory().getId());
         }
-
+        result.setSortIndex(category.getSortIndex());
+        result.setCategoryType(fromCategoryTypeDTO(category.getCategoryType()));
         result.setTranslations(CategoryTranslationHelper.toEntities(category.getTranslations()));
         return result;
     }
@@ -36,6 +39,8 @@ public class CategoryHelper {
         result.setImageUrl(category.getImageUrl());
         result.setParentCategoryId(category.getParentCategoryId());
         result.setActive(category.isActive());
+        result.setSortIndex(category.getSortIndex());
+        result.setCategoryType(toCategoryTypeDTO(category.getCategoryType()));
         result.setTranslations(CategoryTranslationHelper.fromEntities(category.getTranslations()));
         return result;
     }
@@ -60,5 +65,19 @@ public class CategoryHelper {
             result.add(fromEntity(category));
         }
         return result;
+    }
+
+    public static CategoryType fromCategoryTypeDTO(CategoryTypeDTO type) {
+        if (type == null) {
+            return null;
+        }
+        return CategoryType.valueOf(type.name());
+    }
+
+    public static CategoryTypeDTO toCategoryTypeDTO(CategoryType type) {
+        if (type == null) {
+            return null;
+        }
+        return CategoryTypeDTO.valueOf(type.name());
     }
 }

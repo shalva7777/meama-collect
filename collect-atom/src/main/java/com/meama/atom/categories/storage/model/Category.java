@@ -27,4 +27,8 @@ public class Category implements Serializable {
     private boolean active;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CategoryTranslation> translations;
+    @Column(columnDefinition = "integer default 0")
+    private int sortIndex;
+    @Enumerated(value = EnumType.STRING)
+    private CategoryType categoryType;
 }

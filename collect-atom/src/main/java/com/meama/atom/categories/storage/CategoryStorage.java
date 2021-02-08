@@ -10,10 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class CategoryStorage {
@@ -55,6 +52,7 @@ public class CategoryStorage {
                 if (map.containsKey(category.getParentCategoryId())) {
                     List<Category> categories = map.get(category.getParentCategoryId());
                     categories.add(category);
+                    categories.sort(Comparator.comparing(Category::getSortIndex));
                     map.put(category.getParentCategoryId(), categories);
                 }
             }
@@ -136,25 +134,7 @@ public class CategoryStorage {
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             q.setParameter(entry.getKey(), entry.getValue());
         }
-        List<Category> categories = new ArrayList<>();
-        List<Category> resultList = q.getResultList();
-        for (Category category : resultList) {
-//            long count = countUsedParentCategory(category.getId());
-//            if (count == 0) {
-            categories.add(category);
-//            }
-        }
-        return categories;
-    }
-
-    public Long countUsedParentCategory(Long parentCategoryId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("parentCategoryId", parentCategoryId);
-        Query cq = em.createQuery("SELECT COUNT(c.id) FROM Category c WHERE c.parentCategoryId = :parentCategoryId");
-        for (Map.Entry<String, Object> entry : params.entrySet()) {
-            cq.setParameter(entry.getKey(), entry.getValue());
-        }
-        return (Long) cq.getSingleResult();
+        return q.getResultList();
     }
 
     public Long countById(Long Id) {
